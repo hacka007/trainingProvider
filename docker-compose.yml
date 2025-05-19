@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - backend
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - api
+    networks:
+      - backend
+      - frontend
+    environment:
+      - NODE_ENV=development
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - backend
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend
+
+volumes:
+  mongo_data:
+  redis_data:
+
+networks:
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge
