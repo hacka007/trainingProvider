@@ -156,35 +156,3 @@ This will start:
    ```
 
 4. Access the frontend application at http://localhost:3000
-
-## Testing
-
-The application includes a comprehensive test suite to ensure code quality and functionality.
-
-### Running Tests
-
-1. Install test dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. Run all tests with coverage reporting:
-   ```bash
-   pytest
-   ```
-
-3. Run specific tests:
-   ```bash
-   # Run a specific test file
-   pytest tests/unit/routes/v1/test_trainings.py
-
-   # Run a specific test function
-   pytest tests/unit/routes/v1/test_trainings.py::test_create_training_success
-   ```
-
-4. View coverage reports:
-   - Terminal report is displayed after running the tests
-   - HTML report: Open `htmlcov/index.html` in a browser
-   - XML report: Available in `coverage.xml`
-
-For more detailed information about testing, see the [tests/README.md](tests/README.md) file.
